@@ -1,17 +1,17 @@
 ---
-title: "AplicaÁıes Bootstrap"
+title: "Aplica√ß√µes Bootstrap"
 output:
   html_document:
     df_print: paged
 ---
 
-### O que È Bootstrap? 
-O Boostrap È uma tÈcnica para fazer inferÍncia EstatÌstica e tambÈm conhecida como um mÈtodo de reamostragem.
+### O que √© Bootstrap? 
+O Boostrap √© uma t√©cnica para fazer infer√™ncia Estat√≠stica e tamb√©m conhecida como um m√©todo de reamostragem.
 
-Visando tangibilizar esse conte˙do, nas prÛximas definiÁıes considere uma amostra aleatÛria x, tal que x~N(180,10). Vamos calcular uma estimativa bootstrap para a mÈdia de x. 
+Visando tangibilizar esse conte√∫do, nas pr√≥ximas defini√ß√µes considere uma amostra aleat√≥ria x, tal que x~N(180,10). Vamos calcular uma estimativa bootstrap para a m√©dia de x. 
 
-### Bootstrap N„o ParamÈtrico
-A amostra bootstrap È obtida atravÈs de uma reamostragem aleatÛria e com reposiÁ„o dos dados originais.
+### Bootstrap N√£o Param√©trico
+A amostra bootstrap √© obtida atrav√©s de uma reamostragem aleat√≥ria e com reposi√ß√£o dos dados originais.
 
 ```{r,echo=TRUE}
 # n - tamanho da amostra
@@ -19,7 +19,7 @@ A amostra bootstrap È obtida atravÈs de uma reamostragem aleatÛria e com reposiÁ
 n=20
 B=1000
 
-#GeraÁ„o da amostra original
+#Gera√ß√£o da amostra original
 set.seed(123)
 x=rnorm(n,180,10)	#gera n valores da N(180,10) - amostra original
 
@@ -27,50 +27,50 @@ x=rnorm(n,180,10)	#gera n valores da N(180,10) - amostra original
 # Calculando uma amostra Bootstrap
 ###################################
 xboot=sample(x,n,T) #gera uma amostra bootstrap
-cat('\nA mÈdia calculada para uma reamostra bootstrap È: ',round(mean(xboot),digits=4))
+cat('\nA m√©dia calculada para uma reamostra bootstrap √©: ',round(mean(xboot),digits=4))
 
 #######################################
-# Calculando v·rias amostras Bootstrap
+# Calculando v√°rias amostras Bootstrap
 #######################################
-TetaBoot=NULL	#vetor no qual ser„o armazenados as rÈplicas bootstrap
+TetaBoot=NULL	#vetor no qual ser√£o armazenados as r√©plicas bootstrap
 for(i in 1:B)
 {
 	xboot=sample(x,n,T)
-	TetaBoot[i]=mean(xboot)	#calcula a mÈdia para cada amostra bootstrap
+	TetaBoot[i]=mean(xboot)	#calcula a m√©dia para cada amostra bootstrap
 }
 
 ####################################
 # Histograma das amostras bootstrap
 ####################################
 hist(TetaBoot,20,col="lightblue",main="Histograma das estimativas bootstrap",
-     ylab='FrequÍncia',xlab='Estimativa')
+     ylab='Frequ√™ncia',xlab='Estimativa')
 
 ###########################
 # Imprimindo os resultados
 ###########################
-cat('\nMÈdia dos dados: ',round(mean(x),digits=4),
-	' - Erro-padr„o da mÈdia: ',round(sd(x)/sqrt(n),digits=4),
-	'\nMÈdia das medias: ',round(mean(TetaBoot),digits=4),
-	' - Desvio-padr„o das mÈdias ',round(sd(TetaBoot),digits=4),'\n\n')
+cat('\nM√©dia dos dados: ',round(mean(x),digits=4),
+	' - Erro-padr√£o da m√©dia: ',round(sd(x)/sqrt(n),digits=4),
+	'\nM√©dia das medias: ',round(mean(TetaBoot),digits=4),
+	' - Desvio-padr√£o das m√©dias ',round(sd(TetaBoot),digits=4),'\n\n')
 ```
 
-### Bootstrap ParamÈtrico
-A amostra bootstrap È obtida atravÈs de reamostragem aleatÛria da distribuiÁ„o geradora dos dados, com os par‚metros estimados atravÈs da amostra original. Este È esperado ser mais eficiente quando as suposiÁıes paramÈtricas forem verdadeiras.
+### Bootstrap Param√©trico
+A amostra bootstrap √© obtida atrav√©s de reamostragem aleat√≥ria da distribui√ß√£o geradora dos dados, com os par√¢metros estimados atrav√©s da amostra original. Este √© esperado ser mais eficiente quando as suposi√ß√µes param√©tricas forem verdadeiras.
 
 ```{r,echo=TRUE}
-media=mean(x)	#calcula amÈdia de x
-desvio=sd(x)	#calcula o desvio padr„o de x
+media=mean(x)	#calcula am√©dia de x
+desvio=sd(x)	#calcula o desvio padr√£o de x
 
 ###################################
 # Calculando uma amostra Bootstrap
 ###################################
 xboot=rnorm(n,media,desvio)
-cat('\nA mÈdia calculada para uma reamostra bootstrap È: ',round(mean(xboot),digits=4))
+cat('\nA m√©dia calculada para uma reamostra bootstrap √©: ',round(mean(xboot),digits=4))
 
 #######################################
-# Calculando v·rias amostras Bootstrap
+# Calculando v√°rias amostras Bootstrap
 #######################################
-TetaBoot=NULL	#vetor no qual ser„oarmazenadas as estimativas bootstrap
+TetaBoot=NULL	#vetor no qual ser√£oarmazenadas as estimativas bootstrap
 for(i in 1:B)
 {
 	xboot=rnorm(n,media,desvio)
@@ -81,58 +81,57 @@ for(i in 1:B)
 # Histograma das amostras bootstrap
 ####################################
 hist(TetaBoot,20,col="lightblue",main="Histograma das estimativas bootstrap",
-     ylab='FrequÍncia',xlab='Estimativa')
+     ylab='Frequ√™ncia',xlab='Estimativa')
 
 ################################################
 # Imprimindo os resultados
 ################################################
-cat('\nMÈdia dos dados: ',round(mean(x),digits=4),
-	' - Erro-padr„o da mÈdia: ',round(sd(x)/sqrt(n),digits=4),
-	'\nMÈdia das medias: ',round(mean(TetaBoot),digits=4),
-	' - Desvio-padr„o das mÈdias ',round(sd(TetaBoot),digits=4),'\n\n')
+cat('\nM√©dia dos dados: ',round(mean(x),digits=4),
+	' - Erro-padr√£o da m√©dia: ',round(sd(x)/sqrt(n),digits=4),
+	'\nM√©dia das medias: ',round(mean(TetaBoot),digits=4),
+	' - Desvio-padr√£o das m√©dias ',round(sd(TetaBoot),digits=4),'\n\n')
 
 
 
 ```
 
-Observe que a estatÌstica de interesse pode ser qualquer uma. Nesse exemplo, porerÌamos trocar a funÁ„o 'mean' por 'median', caso fosse de interesse encontrar o percentil de 50% dos dados.
+Observe que a estat√≠stica de interesse pode ser qualquer uma. Nesse exemplo, porer√≠amos trocar a fun√ß√£o 'mean' por 'median', caso fosse de interesse encontrar o percentil de 50% dos dados.
 
-Na literatura existem v·rios pacotes com implementaÁıes bootstrap. Cabe ao leitor ler a documentaÁ„o para saber mais. Posteriormente, faremos uso de alguns pacotes para demonstraÁ„o.
+Na literatura existem v√°rios pacotes com implementa√ß√µes bootstrap. Cabe ao leitor ler a documenta√ß√£o para saber mais. Posteriormente, faremos uso de alguns pacotes para demonstra√ß√£o.
 
 
-### AplicaÁıes
+### Aplica√ß√µes
 
-Considere um dataset com as vari·veis peso e altura. FaÁamos uma estimativa bootstrap para o coeficiente de correlaÁ„o.
+Considere um dataset com as vari√°veis peso e altura. Fa√ßamos uma estimativa bootstrap para o coeficiente de correla√ß√£o.
 
-Prosseguir com os arquivos: 15-09, 1-10 data
 
 ```{r,echo=TRUE}
 # Exemplo para o coeficiente de correlacao
-rm(list=ls(all=TRUE))	# Limpa arquivos na memÛria do R
+rm(list=ls(all=TRUE))	# Limpa arquivos na mem√≥ria do R
 require(bootstrap)	# Carrega o pacote bootstrap
 
-B=1000	# Quantidade de rÈplicas bootstrap
+B=1000	# Quantidade de r√©plicas bootstrap
 
 Peso=c(52,48,60,55,71,80,55,58,49,60,57,55,61,88,72)
 Altura=c(1.65,1.57,1.61,1.70,1.72,1.67,1.63,1.60,1.55,1.68,1.62,1.63,1.70,1.64,1.63)
 
-plot(Peso,Altura,pch=19,col='royalblue4',main='Gr·fico de dispers„o')
+plot(Peso,Altura,pch=19,col='royalblue4',main='Gr√°fico de dispers√£o')
 
 PA=as.data.frame(cbind(Peso,Altura))
 n=dim(PA)[1]	# Quantidade de pares odenados
 
 ############################
-# Coeficiente de correlaÁ„o
+# Coeficiente de correla√ß√£o
 ############################
-c=cor(PA$Peso,PA$Altura)	# Calcula do coeficiente de correlaÁ„o
-shapiro.test(PA$Peso)	# Teste de normalidade para a vari·vel Peso
-shapiro.test(PA$Altura)	# Teste de normalidade para a vari·vel Altura
-cor.test(PA$Peso,PA$Altura) # Teste estatÌstico para correlaÁ„o
+c=cor(PA$Peso,PA$Altura)	# Calcula do coeficiente de correla√ß√£o
+shapiro.test(PA$Peso)	# Teste de normalidade para a vari√°vel Peso
+shapiro.test(PA$Altura)	# Teste de normalidade para a vari√°vel Altura
+cor.test(PA$Peso,PA$Altura) # Teste estat√≠stico para correla√ß√£o
 
 ######################
 # Inicio do Bootstrap
 ######################
-# FunÁ„o que calcula a estatÌstica para a qual desejamos a amostra bootstrap
+# Fun√ß√£o que calcula a estat√≠stica para a qual desejamos a amostra bootstrap
 stat=function(ind,x)
 {
 	x1=x[,1]
@@ -141,33 +140,33 @@ stat=function(ind,x)
 	return(c)
 }
 
-# IMPORTANTE: Nos casos complicados, deve-se tomar alguns cuidados com a estrutura da funÁ„o stat.
-# Note que a funÁ„o bootstrap n„o sortear· os pares ordenados diretamente, mas sim o conjunto de Ìndices de 1 atÈ n. 
-# Tendo esses Ìndices sorteados, a funÁ„o stat usa os dados originais como argumento auxiliar, tomando a correlaÁ„o somente dos pares cujos Ìndices foram sorteados.
+# IMPORTANTE: Nos casos complicados, deve-se tomar alguns cuidados com a estrutura da fun√ß√£o stat.
+# Note que a fun√ß√£o bootstrap n√£o sortear√° os pares ordenados diretamente, mas sim o conjunto de √≠ndices de 1 at√© n. 
+# Tendo esses √≠ndices sorteados, a fun√ß√£o stat usa os dados originais como argumento auxiliar, tomando a correla√ß√£o somente dos pares cujos √≠ndices foram sorteados.
 
 set.seed(47)	#Definindo uma semente para reprodutibilidade do exemplo
 indices=1:n
 
-# Os Ìndices agora representar„o os "dados" e PA (dataframe de dados) ser· um argumento auxiliar
-# da funÁ„o que calcula a estatÌstica que ser· amostrada (funÁ„o stat no nosso caso).
+# Os √≠ndices agora representar√£o os "dados" e PA (dataframe de dados) ser√° um argumento auxiliar
+# da fun√ß√£o que calcula a estat√≠stica que ser√° amostrada (fun√ß√£o stat no nosso caso).
 
 correl=bootstrap(indices,B,stat,PA) 
-EPboot=sd(correl$t)	#calcula o erro padr„o bootstrap
-EPass=(1-c^2)/sqrt(n-3)	#calcula o erro padr„o assintÛtico
-hist(correl$t,col='lightblue',xlab='Estimativa',ylab='FrequÍncia',main='Histograma das estimativas bootstrap')
+EPboot=sd(correl$t)	#calcula o erro padr√£o bootstrap
+EPass=(1-c^2)/sqrt(n-3)	#calcula o erro padr√£o assint√≥tico
+hist(correl$t,col='lightblue',xlab='Estimativa',ylab='Frequ√™ncia',main='Histograma das estimativas bootstrap')
 
 ########################
 # Imprime os resultados
 ########################
-cat('\n Coeficiente de correlaÁ„o: ',round(c,digits=3),
-    '\n Coeficiente de correlaÁ„o bootstrap: ',round(mean(correl$t),digits=3),
-    '\n Erro padr„o assintotico: ',round(EPass,digits=3), 
-    '\n Erro padr„o bootstrap ',round(EPboot,digits=3),'\n\n')
+cat('\n Coeficiente de correla√ß√£o: ',round(c,digits=3),
+    '\n Coeficiente de correla√ß√£o bootstrap: ',round(mean(correl$t),digits=3),
+    '\n Erro padr√£o assintotico: ',round(EPass,digits=3), 
+    '\n Erro padr√£o bootstrap ',round(EPboot,digits=3),'\n\n')
 ```
 
-### Intervalo de ConfianÁa PercentÌlico
+### Intervalo de Confian√ßa Percent√≠lico
 
-Considere o conjunto de dados "Surimi", que È uma proteÌna de peixe purificada usada como material para fazer imitaÁ„o de produtos alimentÌcios de caranguejos e camarıes. A forÁa do gel Surimi È um fator critico na produÁ„o. Cada porÁ„o do material de Surimi cru È amostrado e um gel cozido È preparado. Deste gel, porÁıes s„o amostradas, testadas no quesito forÁa e gravadas em ma vari·vel x. Calcule um intervalo de confianÁa de confianÁa para a forÁa mÈdia do gel Surimi.
+Considere o conjunto de dados "Surimi", que √© uma prote√≠na de peixe purificada usada como material para fazer imita√ß√£o de produtos aliment√≠cios de caranguejos e camar√µes. A for√ßa do gel Surimi √© um fator critico na produ√ß√£o. Cada por√ß√£o do material de Surimi cru √© amostrado e um gel cozido √© preparado. Deste gel, por√ß√µes s√£o amostradas, testadas no quesito for√ßa e gravadas em ma vari√°vel x. Calcule um intervalo de confian√ßa para a for√ßa m√©dia do gel Surimi.
 
 ```{r,echo=TRUE}
 x=c(41.28,45.16,34.75,40.76,43.61,39.05,41.20,41.02,41.33,40.61,40.49,
@@ -178,18 +177,18 @@ summary(x)
 shapiro.test(x)	#teste de normalidade
 
 ######################################
-# Intervalo de confianÁa percentÌlico
+# Intervalo de confian√ßa percent√≠lico
 ######################################
 
-#Bootatrap n„o paramÈtrico
-B=1000 # n˙mero de amostras bootstrap
+#Bootatrap n√£o param√©trico
+B=1000 # n√∫mero de amostras bootstrap
 set.seed(1)
 require(bootstrap)
 mboot=bootstrap(x,B,mean)	# reamostragem bootstrap
 medias=mboot$thetastar	# medias bootstrap
-ICbootNP=quantile(mboot$t,probs=c(0.025,0.975))	# calcula IC percentÌlico
+ICbootNP=quantile(mboot$t,probs=c(0.025,0.975))	# calcula IC percent√≠lico
 
-#Bootstrap paramÈtrico
+#Bootstrap param√©trico
 set.seed(2)
 n=length(x)
 media=mean(x)
@@ -204,31 +203,31 @@ ICbootP=quantile(mediaB,probs=c(0.025,0.975))
 
 #Histograma Comparativo
 par(mfrow=c(1,2))
-hist(medias,20, col=rgb(0,0,1,1/4),main="Bootstrap N„o ParamÈtrico",ylab="FrequÍncia",xlab="Estimativa",xlim=c(40,45),ylim=c(0,130))
+hist(medias,20, col=rgb(0,0,1,1/4),main="Bootstrap N√£o Param√©trico",ylab="Frequ√™ncia",xlab="Estimativa",xlim=c(40,45),ylim=c(0,130))
 abline(v=ICbootP,lty=2,col='darkred')
-hist(mediaB,20, col=rgb(1,0,0,1/4),main="Bootstrap ParamÈtrico",ylab="FrequÍncia",xlab="Estimativa",xlim=c(40,45),ylim=c(0,130))
+hist(mediaB,20, col=rgb(1,0,0,1/4),main="Bootstrap Param√©trico",ylab="Frequ√™ncia",xlab="Estimativa",xlim=c(40,45),ylim=c(0,130))
 abline(v=ICbootNP,lty=2,col='darkred')
 
 
 #####################################
-# Intervalo de confianÁa tradicional
+# Intervalo de confian√ßa tradicional
 #####################################
 LI=mean(x)-qt(0.975, n-1)*sd(x)/sqrt(n)	# Limite inferior do IC t-student com 95%
 LS=mean(x)+qt(0.975, n-1)*sd(x)/sqrt(n)	# Limite superior do IC t-student com 95%
 
-# IMPRESS√O DOS RESULTADOS
-cat('IC=[',LI,',',LS,']\n')	# IC t-student com 95% de confianÁa		
-cat('ICbootNP=[',ICbootNP[1],',',ICbootNP[2],']\n')	# IC percentÌlico N„o ParamÈtrico com 95% de confianÁa
-cat('ICbootP=[',ICbootP[1],',',ICbootP[2],']\n')	# IC percentÌlico ParamÈtrico com 95% de confianÁa
+# IMPRESS√ÉO DOS RESULTADOS
+cat('IC=[',LI,',',LS,']\n')	# IC t-student com 95% de confian√ßa		
+cat('ICbootNP=[',ICbootNP[1],',',ICbootNP[2],']\n')	# IC percent√≠lico N√£o Param√©trico com 95% de confian√ßa
+cat('ICbootP=[',ICbootP[1],',',ICbootP[2],']\n')	# IC percent√≠lico Param√©trico com 95% de confian√ßa
 
 ```
 
-### An·lise de componentes principais
+### An√°lise de componentes principais
 
-Uma das principais aplicaÁıes do PCA È a reduÁ„o de dimensionalidade. Vejamos um exemplo da estimaÁ„o da variabilidade dos dados esplicadas pelas duas primeiras componentes a um conjunto de dados de 10 indivÌduos submetidos a um determinado tipo de avaliaÁ„o.
+Uma das principais aplica√ß√µes do PCA √© a redu√ß√£o de dimensionalidade. Vejamos um exemplo da estima√ß√£o da variabilidade dos dados esplicadas pelas duas primeiras componentes a um conjunto de dados de 10 indiv√≠duos submetidos a um determinado tipo de avalia√ß√£o.
 
 ```{r,echo=TRUE}
-##### LIMPANDO AS VARI¡VEIS #####
+##### LIMPANDO AS VARI√ÅVEIS #####
 
 rm(list=ls(all=T))
 
@@ -236,7 +235,7 @@ rm(list=ls(all=T))
 
 set.seed(1)
 
-##### CRIA«√O DO BANCO DE DADOS #####
+##### CRIA√á√ÉO DO BANCO DE DADOS #####
 
 exatas <- c(9,8,8,9,5,4,7,4,6,3)
 humanas <- c(6,0,3,9,5,9,9,10,9,10)
@@ -246,7 +245,7 @@ mental <- c(21,18,27,24,22,17,22,30,27,24)
 dados <- as.data.frame(cbind(exatas,humanas,biologicas,fisico,mental))
 nvar <- ncol(dados);nind <- nrow(dados)
 
-##### MATRIZ DE CORRELA«√O #####
+##### MATRIZ DE CORRELA√á√ÉO #####
 
 correl <- cor(dados)
 correl
@@ -257,7 +256,7 @@ summary(pca)
 pca$loadings
 pca$scores
 
-##### REALIZA«√O DO BOOTSTRAP #####
+##### REALIZA√á√ÉO DO BOOTSTRAP #####
 
 require(bootstrap)
 B <- 1000
@@ -274,7 +273,7 @@ PCAboot=function(componente)
 	}
 	scorbootcor <- bootstrap(1:nind, B, thetacor)
 	sd(scorbootcor$thetastar) 
-	hist(scorbootcor$thetastar,20,col='lightblue',main=paste('Bootstrap componente',componente),ylab='FrequÍncia',xlab='Estimativa')
+	hist(scorbootcor$thetastar,20,col='lightblue',main=paste('Bootstrap componente',componente),ylab='Frequ√™ncia',xlab='Estimativa')
 	abline(v=thetacor(1:nind), col="darkred",lty=2)
 	abline(v=mean(scorbootcor$thetastar), col="royalblue4",lty=2)
 	valorcor <- as.numeric(pca$sdev[componente]^2/sum(pca$sdev^2))
@@ -288,4 +287,4 @@ PCAboot(2)
 
 ```
 
-Note que o percentual da variabilidade dos dados esplicado pelas duas primeiras componentes passou de 64% para 75%. A reamostragem dos dados dimunuiu as incertezas com relaÁ„o a amostra e atribui mais peso a um n˙mero menor de componentes.
+Note que o percentual da variabilidade dos dados esplicado pelas duas primeiras componentes passou de 64% para 75%. A reamostragem dos dados dimunuiu as incertezas com rela√ß√£o a amostra e atribui mais peso a um n√∫mero menor de componentes.
